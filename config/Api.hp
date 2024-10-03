@@ -1,0 +1,42 @@
+<?php
+require "DBclass.php";
+$db = new DBclass();
+$response['success'] = false;
+if(isset($_REQUEST['action'])){
+    $action = $_REQUEST['action'];
+    switch ($action) {
+    case 'getTable':
+      $response['data'] = $db->getTable();
+      $response['success'] = true;
+    case 'getTableById':
+      $response['data'] = $db->getTableById($_REQUEST['id']);
+      $response['success'] = true;
+    case 'insertTable':
+      $response['success'] = $db->insertData($_REQUEST['name'],$_REQUEST['email'],$_REQUEST['password']);
+      $response['success'] = true;
+    case 'updateUser':
+        break;
+      
+      default:
+        # code...
+        break;
+    }
+  /*if($action == 'getTable') {
+        $response['data'] = $db->getTable();
+        $response['success'] = true;
+    }else if($action == 'getUser'){
+        $response['data'] = $db->getTableById($_REQUEST['id']);
+        $response['success'] = true;
+    }else if($action == 'insertTable'){
+        $response['success'] = $db->insertData($_REQUEST['name'],$_REQUEST['email'],$_REQUEST['password']);
+    }else if($action == 'updateUser'){
+        $response['success'] = $db->updateUser($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],$_REQUEST['password']);
+    }else if($action == 'deleteUser'){
+        $response['success'] = $db->deleteUser($_REQUEST['id']);
+    }*/
+}
+
+
+
+$db=null;
+die(json_encode($response));
